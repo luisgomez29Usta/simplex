@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Método Simplex</title>
-    <link rel="stylesheet" href="static/css/css/bootstrap.css">
+    <link rel="stylesheet" href="static/css/bootstrap.css">
+    <link rel="stylesheet" href="static/css/src/simplex.css">
 </head>
 <body>
 <br>
@@ -17,32 +18,88 @@
     <div class="jumbotron">
         <p class="lead">Recolectando datos</p>
         <hr class="my-4">
-        <p>Ingresa la cantidad de variables</p>
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
-                   aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-success" type="button">Continuar</button>
+        <div class="row">
+            <div class="col-sm">
+                <p>Ingresa la cantidad de variables</p>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder=""
+                           aria-label=""
+                           aria-describedby="basic-addon2">
+                </div>
+            </div>
+            <div class="col-sm">
+                <p>Ingresa la cantidad de funciones restricción</p>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder=""
+                           aria-label=""
+                           aria-describedby="basic-addon2">
+                </div>
             </div>
         </div>
-        <p>Ingresa la cantidad de funciones restricción</p>
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
-                   aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn  btn-success" type="button">Continuar</button>
+        <div class="row">
+            <div class="col-sm">
+                <div class="input-group-append">
+                    <button class="btn  btn-success m-auto" type="button" id="btnCont">Continuar</button>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="jumbotron">
+    <div id="dataInitial" class="jumbotron">
         <p class="lead">Organizando información</p>
         <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-        </p>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder=""
+                   aria-label=""
+                   aria-describedby="basic-addon2"> <span>X1 + </span>
+            <input type="text" class="form-control" placeholder=""
+                   aria-label=""
+                   aria-describedby="basic-addon2"> <span>X2 + </span>
+            <select class="" style="width: 45px !important;">
+                <option selected><=</option>
+            </select>
+            <input type="text" class="form-control" placeholder=""
+                   aria-label=""
+                   aria-describedby="basic-addon2">
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder=""
+                   aria-label=""
+                   aria-describedby="basic-addon2"> <span>X1 + </span>
+            <input type="text" class="form-control" placeholder=""
+                   aria-label=""
+                   aria-describedby="basic-addon2"> <span>X2 + </span>
+            <select class="" style="width: 45px !important;">
+                <option selected><=</option>
+            </select>
+            <input type="text" class="form-control" placeholder=""
+                   aria-label=""
+                   aria-describedby="basic-addon2">
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder=""
+                   aria-label=""
+                   aria-describedby="basic-addon2"> <span>X1 + </span>
+            <input type="text" class="form-control" placeholder=""
+                   aria-label=""
+                   aria-describedby="basic-addon2"> <span>X2 + </span>
+            <select class="" style="width: 45px !important;">
+                <option selected><=</option>
+            </select>
+            <input type="text" class="form-control" placeholder=""
+                   aria-label=""
+                   aria-describedby="basic-addon2">
+        </div>
+        <div class="input-group-append">
+            <button class="btn  btn-success m-auto" type="button">Continuar</button>
+        </div>
     </div>
+    <div class="jumbotron">
+        <p class="lead">Organizando variables</p>
+        <hr class="my-4">
+    </div>
+
 </div>
+<script src="static/js/jquery-3.4.1.min.js"></script>
+<script src="static/js/src/simplex.js"></script>
 </body>
 </html>
