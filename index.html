@@ -22,7 +22,7 @@
             <div class="col-sm">
                 <p>Ingresa la cantidad de variables</p>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder=""
+                    <input id="amountVariables" type="text" class="form-control" placeholder=""
                            aria-label=""
                            aria-describedby="basic-addon2">
                 </div>
@@ -30,7 +30,7 @@
             <div class="col-sm">
                 <p>Ingresa la cantidad de funciones restricción</p>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder=""
+                    <input id="amountRestrictions" type="text" class="form-control" placeholder=""
                            aria-label=""
                            aria-describedby="basic-addon2">
                 </div>
@@ -47,55 +47,11 @@
     <div id="dataInitial" class="jumbotron">
         <p class="lead">Organizando información</p>
         <hr class="my-4">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder=""
-                   aria-label=""
-                   aria-describedby="basic-addon2"> <span>X1 + </span>
-            <input type="text" class="form-control" placeholder=""
-                   aria-label=""
-                   aria-describedby="basic-addon2"> <span>X2 + </span>
-            <select class="" style="width: 45px !important;">
-                <option selected><=</option>
-            </select>
-            <input type="text" class="form-control" placeholder=""
-                   aria-label=""
-                   aria-describedby="basic-addon2">
-        </div>
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder=""
-                   aria-label=""
-                   aria-describedby="basic-addon2"> <span>X1 + </span>
-            <input type="text" class="form-control" placeholder=""
-                   aria-label=""
-                   aria-describedby="basic-addon2"> <span>X2 + </span>
-            <select class="" style="width: 45px !important;">
-                <option selected><=</option>
-            </select>
-            <input type="text" class="form-control" placeholder=""
-                   aria-label=""
-                   aria-describedby="basic-addon2">
-        </div>
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder=""
-                   aria-label=""
-                   aria-describedby="basic-addon2"> <span>X1 + </span>
-            <input type="text" class="form-control" placeholder=""
-                   aria-label=""
-                   aria-describedby="basic-addon2"> <span>X2 + </span>
-            <select class="" style="width: 45px !important;">
-                <option selected><=</option>
-            </select>
-            <input type="text" class="form-control" placeholder=""
-                   aria-label=""
-                   aria-describedby="basic-addon2">
-        </div>
-        <div class="input-group-append">
-            <button class="btn  btn-success m-auto" type="button">Continuar</button>
-        </div>
     </div>
     <div class="jumbotron">
         <p class="lead">Organizando variables</p>
         <hr class="my-4">
+        <p>El problema se convierte en forma canónica agregando variables flojas, excedentes y artificiales según corresponda (mostrar / ocultar detalles)        </p>
     </div>
 
 </div>
