@@ -4,6 +4,7 @@ from fractions import Fraction
 
 try:
     import pandas as pd
+
     pandas_av = True
 except ImportError:
     pandas_av = False
@@ -39,11 +40,12 @@ def main():
     global contrains_names
     # tipo de problema: 1 para maximizar y 2 para minimizar
 
-    contrains_names = [x + str(i) for i in range(1, cantidad_variables + 1)] #Depende de la cantidad de variables
+    contrains_names = [x + str(i) for i in range(1, cantidad_variables + 1)]  # Depende de la cantidad de variables
     # const_names = ['X1', 'X2'] #Depende de la cantidad de variables
     if tipo_problema == 1:  # Entra a minización
 
-        while len(ecuacion_Z) <= (cantidad_variables + cantidad_constrains): #se hace porque la cantidad de variables finales (variables mas variebles de olgura) son la suma de estos
+        while len(ecuacion_Z) <= (
+                cantidad_variables + cantidad_constrains):  # se hace porque la cantidad de variables finales (variables mas variebles de olgura) son la suma de estos
             ecuacion_Z.append(0)
 
         # Crea la tabla para empezar el metodo simplex
@@ -56,8 +58,9 @@ def main():
             i += 1
         solutions.append(' Z')
         contrains_names.append('Solution')
-        filas_finales.append(ecuacion_Z)       # Se agrega a la tabla la funcion restricion transformada
-        columnas_finales = np.array(filas_finales).T.tolist() #Se transforma la matriz y luego se convierte a una lista
+        filas_finales.append(ecuacion_Z)  # Se agrega a la tabla la funcion restricion transformada
+        columnas_finales = np.array(
+            filas_finales).T.tolist()  # Se transforma la matriz y luego se convierte a una lista
         print('\n##########################################')
         maximization(filas_finales, columnas_finales)
 
@@ -117,13 +120,14 @@ def main():
 
 def maximization(filas_tabla, columnas_tabla):
     row_app = []
-    ultima_fila = filas_tabla[-1] #Obtiene la ultima culumna de la tabla (matriz) es decir la funcion objetivo
-    min_last_row = min(ultima_fila) # obtiene el elemento menor
+    ultima_fila = filas_tabla[-1]  # Obtiene la ultima culumna de la tabla (matriz) es decir la funcion objetivo
+    min_last_row = min(ultima_fila)  # obtiene el elemento menor
     min_manager = 1
     print(" 1 TABLEAU")
     try:
-        final_pd = pd.DataFrame(np.array(filas_tabla), columns=contrains_names, index=solutions) #Organiza graficamente con pandas la tabla con sus encabezados y filas
-        print(final_pd) # imprime la tabla
+        final_pd = pd.DataFrame(np.array(filas_tabla), columns=contrains_names,
+                                index=solutions)  # Organiza graficamente con pandas la tabla con sus encabezados y filas
+        print(final_pd)  # imprime la tabla
     except:
         print('  ', contrains_names)
         i = 0
@@ -134,50 +138,59 @@ def maximization(filas_tabla, columnas_tabla):
     pivot_element = 2
     while min_last_row < 0 < pivot_element != 1 and min_manager == 1 and count < 6:
         print("*********************************************************")
-        ultima_fila = filas_tabla[-1] #Obtiene la ultima columna
-        ultima_columna = columnas_tabla[-1] #Obtiene la ultima columna (lo hace usando la matriz transpuesta)
-        min_last_row = min(ultima_fila) #Obtiene el elemento menor de la
-        posicion_menor_funcion_objetivo = ultima_fila.index(min_last_row) #Obtiene la posicion del elemento menor de la fila (funcion objetivo)
-        columna_pivote = columnas_tabla[posicion_menor_funcion_objetivo] #Asigna a la variable cual es la columna objetivo
+        ultima_fila = filas_tabla[-1]  # Obtiene la ultima columna
+        ultima_columna = columnas_tabla[-1]  # Obtiene la ultima columna (lo hace usando la matriz transpuesta)
+        min_last_row = min(ultima_fila)  # Obtiene el elemento menor de la
+        posicion_menor_funcion_objetivo = ultima_fila.index(
+            min_last_row)  # Obtiene la posicion del elemento menor de la fila (funcion objetivo)
+        columna_pivote = columnas_tabla[
+            posicion_menor_funcion_objetivo]  # Asigna a la variable cual es la columna objetivo
         posicion_pivote_col = columnas_tabla.index(columna_pivote)
-        columna_resultado_divisiones = [] #lista que va almacenando los resultados de las divisiones par luego determinar el menor y asi la fila pivote
+        columna_resultado_divisiones = []  # lista que va almacenando los resultados de las divisiones par luego determinar el menor y asi la fila pivote
         i = 0
-        for _ in ultima_columna[:-1]: #toma todos los elementos de la lista, menos el ultimo
+        for _ in ultima_columna[:-1]:  # toma todos los elementos de la lista, menos el ultimo
             try:
-                val = float(ultima_columna[i] / columna_pivote[i]) # empieza a hacer las divisiones para determinar la fila pivote
+                val = float(ultima_columna[i] / columna_pivote[
+                    i])  # empieza a hacer las divisiones para determinar la fila pivote
                 if val <= 0:
-                    val = 10000000000 # pone un valor muy grande para ignorarlo cuadno se busque el valor mayor a cero para determinar la fila pivote
+                    val = 10000000000  # pone un valor muy grande para ignorarlo cuadno se busque el valor mayor a cero para determinar la fila pivote
                 else:
                     val = val
                 columna_resultado_divisiones.append(val)
-            except ZeroDivisionError: #si la division es por cero, entre a la excepcion
+            except ZeroDivisionError:  # si la division es por cero, entre a la excepcion
                 val = 10000000000  # pone un valor muy grande para ignorarlo cuadno se busque el valor maypr a cero para determinar la fila pivote
                 columna_resultado_divisiones.append(val)
             i += 1
-        min_div_val = min(columna_resultado_divisiones) #obtiene el valor menor de la lista
-        index_min_div_val = columna_resultado_divisiones.index(min_div_val) #Obtiene la posicion del valor menor de la lista
-        pivot_element = columna_pivote[index_min_div_val] #Se obtiene el elemento pivote usando la columna pivote y seleccionando el valor de la fila pivote
+        min_div_val = min(columna_resultado_divisiones)  # obtiene el valor menor de la lista
+        index_min_div_val = columna_resultado_divisiones.index(
+            min_div_val)  # Obtiene la posicion del valor menor de la lista
+        pivot_element = columna_pivote[
+            index_min_div_val]  # Se obtiene el elemento pivote usando la columna pivote y seleccionando el valor de la fila pivote
         fila_pivote = filas_tabla[index_min_div_val]
         posicion_pivote_fila = filas_tabla.index(fila_pivote)
-        row_app[:] = [] # [:] significa hacer una copia
+        row_app[:] = []  # [:] significa hacer una copia
         for fila in filas_tabla:
             if fila is not fila_pivote and fila is not filas_tabla[-1]:
-                form = fila[posicion_menor_funcion_objetivo] / pivot_element #divide los elemento de la columna pivote en el elemento pivote
-                final_val = np.array(fila_pivote) * form #multplica el resultado anterior por la fila pivote
-                new_col = (np.round((np.array(fila) - final_val), decimals)).tolist() #redonde el resultado usando la cantidad de variables especificacdas
-                filas_tabla[filas_tabla.index(fila)] = new_col #remplaza la fila por la nueva fila(es como si se estubiera haciendo gauss aqui)
+                form = fila[
+                           posicion_menor_funcion_objetivo] / pivot_element  # divide los elemento de la columna pivote en el elemento pivote
+                final_val = np.array(fila_pivote) * form  # multplica el resultado anterior por la fila pivote
+                new_col = (np.round((np.array(fila) - final_val),
+                                    decimals)).tolist()  # redonde el resultado usando la cantidad de variables especificacdas
+                filas_tabla[filas_tabla.index(
+                    fila)] = new_col  # remplaza la fila por la nueva fila(es como si se estubiera haciendo gauss aqui)
 
-            elif fila is fila_pivote: #si la fila actual es la fila pivote, lo que hace es dividirla por el elemento pivote
+            elif fila is fila_pivote:  # si la fila actual es la fila pivote, lo que hace es dividirla por el elemento pivote
                 new_col = (np.round((np.array(fila) / pivot_element), decimals)).tolist()
                 filas_tabla[filas_tabla.index(fila)] = new_col
-            else: #detecta que la fila es la funcion objetivo
-                form = abs(fila[posicion_menor_funcion_objetivo]) / pivot_element #obtiene el valor absoluto del valor que esta en la columna pivote y lo divide por el pivote
+            else:  # detecta que la fila es la funcion objetivo
+                form = abs(fila[
+                               posicion_menor_funcion_objetivo]) / pivot_element  # obtiene el valor absoluto del valor que esta en la columna pivote y lo divide por el pivote
                 final_val = np.array(fila_pivote) * form
                 new_col = (np.round((np.array(fila) + final_val), decimals)).tolist()
                 filas_tabla[filas_tabla.index(fila)] = new_col
         columnas_tabla[:] = []
         re_filas_tabla = np.array(filas_tabla).T.tolist()
-        columnas_tabla = columnas_tabla + re_filas_tabla #NUEVA TABLA PARA REALIZAR SIMPLEX
+        columnas_tabla = columnas_tabla + re_filas_tabla  # NUEVA TABLA PARA REALIZAR SIMPLEX
 
         if min(columna_resultado_divisiones) != 10000000000:
             min_manager = 1
@@ -187,7 +200,8 @@ def maximization(filas_tabla, columnas_tabla):
         print('pivot column: ', columna_pivote)
         print('pivot row: ', fila_pivote)
         print("\n")
-        solutions[posicion_pivote_fila] = contrains_names[posicion_pivote_col] #SACA LA VARIABLE Y ENTRA LA VARIABLE DE LA COLUMNA
+        solutions[posicion_pivote_fila] = contrains_names[
+            posicion_pivote_col]  # SACA LA VARIABLE Y ENTRA LA VARIABLE DE LA COLUMNA
 
         print(" %d TABLA AU" % count)
         try:
@@ -394,9 +408,11 @@ def stdz_rows(column_values):
     """
     range(#,#, salto: cuanto va a ser el salto)
     """
-    final_cols = [column_values[x:x + cantidad_variables + 1] #toma los valores desde la posicion inicial en el for hasta la cantidad de variables mas 1, es decir la cantidad de varibles que deben ir por fila
+    final_cols = [column_values[x:x + cantidad_variables + 1]
+                  # toma los valores desde la posicion inicial en el for hasta la cantidad de variables mas 1, es decir la cantidad de varibles que deben ir por fila
                   for x in
-                  range(0, len(column_values), cantidad_variables + 1)] #crea una matriz donde cada fila es una restriccion
+                  range(0, len(column_values),
+                        cantidad_variables + 1)]  # crea una matriz donde cada fila es una restriccion
 
     for cols in final_cols:
         while len(cols) < (cantidad_variables + cantidad_constrains):
@@ -404,9 +420,9 @@ def stdz_rows(column_values):
 
     i = cantidad_variables
 
-    for sub_col in final_cols: #agrega los unos que se suelen agregar cuando se agregan variables de olgura
+    for sub_col in final_cols:  # agrega los unos que se suelen agregar cuando se agregan variables de olgura
         sub_col.insert(i, 1)
-        i += 1 #aumente para agregar el uno en la siguiente columna
+        i += 1  # aumente para agregar el uno en la siguiente columna
 
     return final_cols
 
