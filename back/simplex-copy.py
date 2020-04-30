@@ -4,12 +4,15 @@ from fractions import Fraction
 
 try:
     import pandas as pd
-
     pandas_av = True
 except ImportError:
     pandas_av = False
     pass
 
+cantidad_variables = 2
+decimals = 9
+tipo_problema = 1
+cantidad_constrains = 3
 constrains_names = ['constrain1', 'constrain2', 'constrain3']  # nombre de las variables, no la usaremos
 col_values = [1.0, 0.0, 4.0,
               0.0, 2.0, 12.0,
@@ -35,10 +38,7 @@ def main():
     global cantidad_constrains, cantidad_variables  # Cantidad de contrains y variables respectivamente
     global contrains_names
     # tipo de problema: 1 para maximizar y 2 para minimizar
-    decimals = 9
-    tipo_problema = 1
-    cantidad_variables = 2
-    cantidad_constrains = 3
+
     contrains_names = [x + str(i) for i in range(1, cantidad_variables + 1)] #Depende de la cantidad de variables
     # const_names = ['X1', 'X2'] #Depende de la cantidad de variables
     if tipo_problema == 1:  # Entra a minización
