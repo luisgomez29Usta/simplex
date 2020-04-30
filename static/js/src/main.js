@@ -73,8 +73,5 @@ $(document).ready(function () {
         }).fail(function (error) {
             console.log("error:", error);
         })
-
-
     })
-
 });

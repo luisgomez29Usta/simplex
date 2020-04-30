@@ -81,61 +81,14 @@
                     <div class="card-body">
                         <h5 class="card-title text-center mb-4">Organizando la información</h5>
                         <p class="card-text">Ingrese los coeficientes de la función objetivo</p>
-                        <div id="coefficient-div" class="input-group">
-                            {#<input type="text" class="form-control" name="coefficient-0" id="coefficient-0">
-                            <label for="coefficient-0" class="mx-1">X<sub>1</sub> +</label>
-                            <input type="text" class="form-control" name="coefficient-1" id="coefficient-1">
-                            <label for="coefficient-1" class="mx-1">X<sub>2</sub> +</label>
-                            <input type="text" class="form-control" name="coefficient-2" id="coefficient-2">
-                            <label for="coefficient-2" class="mx-1">X<sub>3</sub> +</label>
-                            <input type="text" class="form-control" name="coefficient-3" id="coefficient-3">
-                            <label for="coefficient-3" class="mx-1">X<sub>4</sub> +</label>
-                            <input type="text" class="form-control" name="coefficient-4" id="coefficient-4">
-                            <label for="coefficient-4" class="mx-1">X<sub>5</sub></label>#}
-                        </div>
+                        <div id="coefficient-div" class="input-group"></div>
                         <p class="card-text my-3">Ingrese las funciones restricción</p>
-                        <div id="restriction-div" class="mb-5">
-                            {#<div class="input-group">
-                                <input type="text" class="form-control" name="restriction-0" id="restriction-0">
-                                <label for="restriction-0" class="mx-1">X<sub>1</sub> +</label>
-                                <input type="text" class="form-control" name="restriction-1" id="restriction-1">
-                                <label for="restriction-1" class="mx-1">X<sub>2</sub> +</label>
-                                <input type="text" class="form-control" name="restriction-2" id="restriction-2">
-                                <label for="restriction-2" class="mx-1">X<sub>3</sub> +</label>
-                                <input type="text" class="form-control" name="restriction-3" id="restriction-3">
-                                <label for="restriction-3" class="mx-1">X<sub>4</sub> +</label>
-                                <input type="text" class="form-control" name="restriction-4" id="restriction-4">
-                                <label for="restriction-4" class="mx-1">X<sub>5</sub></label>
-                                <select id="restriction-sign" class="mr-2" style="width: 45px !important;">
-                                    <option value="1" selected="">≤</option>
-                                    <option value="2">≥</option>
-                                    <option value="3">=</option>
-                                </select>
-                                <input type="text" class="form-control" name="restriction-5" id="restriction-5">
-                            </div>#}
-                        </div>
+                        <div id="restriction-div" class="mb-5"></div>
                         <p class="text-center" id="non-negative-variables"></p>
                         <button type="button" id="btn_send"
                                 class="btn btn-outline-success rounded-pill m-auto d-block px-4">
                             Continuar
                         </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-7">
-                <div class="card my-5">
-                    <div class="card-body">
-                        <h5 class="card-title text-center mb-4">Enviando la info</h5>
-                        <p class="card-text">Ingrese los coeficientes de la función objetivo</p>
-                        {#<form method="post">
-                            {{ csrf_token }}
-                        </form>#}
-                        {#<button type="button" id="send"
-                                class="btn btn-outline-success rounded-pill m-auto d-block px-4">
-                            Enviar
-                        </button>#}
                     </div>
                 </div>
             </div>
@@ -157,7 +110,7 @@
         <hr class="bg-white">
         <div class="row">
             <div class="col-12">
-                <small class="d-block text-center">© 2020 SimplexCalc Colombia. Todos los derechos reservados</small>
+                <small class="d-block text-center">© {{ now.year }} SimplexCalc Colombia. Todos los derechos reservados</small>
             </div>
         </div>
     </div>
@@ -166,6 +119,5 @@
 <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/src/main.js') }}"></script>
-{#<script src="{{ url_for('static', filename='js/src/ajax.js') }}"></script>#}
 </body>
 </html>
