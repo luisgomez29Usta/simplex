@@ -85,6 +85,7 @@ $(document).ready(function () {
 
         $.ajax({
             method: 'POST',
+            contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify({
                 quantity_variables: $('#amount_variables').val(),

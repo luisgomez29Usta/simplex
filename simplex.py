@@ -1,5 +1,6 @@
 import sys
 import numpy as np
+import json
 from fractions import Fraction
 
 try:
@@ -10,17 +11,15 @@ except ImportError:
     pandas_av = False
     pass
 
-quantity_variables = 2
+# quantity_variables = 2
 decimals = 9
 problem_type = 1
-quantity_constrains = 3
+# quantity_constrains = 3
 constrains_names = ['constrain1', 'constrain2', 'constrain3']  # nombre de las variables, no la usaremos
-col_values = [1.0, 0.0, 4.0,
-              0.0, 2.0, 12.0,
-              3.0, 2.0, 18.0]
-z_equation = [-3, -5]  # ecuacion z
+# col_values = [1.0, 0.0, 4.0, 0.0, 2.0, 12.0, 3.0, 2.0, 18.0]; z_equation = [-3, -5]  # ecuacion z
 final_rows = []  #
 solutions = []  # 'X3', 'X4', 'X5', 'Z'
+data = []
 x = 'X'
 z2_equation = []
 removable_vars = []
@@ -34,88 +33,114 @@ please check again the formulation of constrains
             """
 
 
-def main():
+def principal(quantity_variables1, quantity_constrains1, col_values1, z_equation1):
+    """
+
+    :param quantity_variables1:
+    :param quantity_constrains1:
+    :param col_values1:
+    :param z_equation1:
+    :return:
+    """
     global decimals
-    global quantity_constrains, quantity_variables  # Cantidad de contrains y variables respectivamente
+    global quantity_constrains
+    global quantity_variables  # Cantidad de contrains y variables respectivamente
     global contrains_names
+    global col_values
+    global z_equation
+    global data
+
+    col_values = col_values1
+    z_equation = z_equation1
+    quantity_constrains = quantity_constrains1
+    quantity_variables = quantity_variables1
     # tipo de problema: 1 para maximizar y 2 para minimizar
 
     contrains_names = [x + str(i) for i in range(1, quantity_variables + 1)]  # Depende de la cantidad de variables
     # const_names = ['X1', 'X2'] #Depende de la cantidad de variables
-    if problem_type == 1:  # Entra a minización
-
-        while len(z_equation) <= (
-                quantity_variables + quantity_constrains):  # se hace porque la cantidad de variables finales (variables mas variebles de olgura) son la suma de estos
-            z_equation.append(0)
-
-        # Crea la tabla para empezar el metodo simplex
-        filas_finales = stdz_rows(col_values)
-        i = len(contrains_names) + 1
-        # agrega las estiquetas X de variables de holgura
-        while len(contrains_names) < len(filas_finales[0]) - 1:
-            contrains_names.append('X' + str(i))
-            solutions.append('X' + str(i))
-            i += 1
-        solutions.append(' Z')
-        contrains_names.append('Solution')
-        filas_finales.append(z_equation)  # Se agrega a la tabla la funcion restricion transformada
-        columnas_finales = np.array(
-            filas_finales).T.tolist()  # Se transforma la matriz y luego se convierte a una lista
-        print('\n##########################################')
-        maximization(filas_finales, columnas_finales)
+    if problem_type == 1:  # Entra a maximizacion
+        return problem_maximization()
 
     elif problem_type == 2:
-        for i in contrains_names:
-            try:
-                val = float(Fraction(input("enter the value of %s in Z equation: >" % i)))
-            except ValueError:
-                print("please enter a number")
-                val = float(Fraction(input("enter the value of %s in Z equation: >" % i)))
-            z_equation.append(val)
-        z_equation.append(0)
-
-        while len(z_equation) <= (quantity_variables + quantity_constrains):
-            z_equation.append(0)
-        print("__________________________________________________")
-        for variable in constrains_names:
-            for temp in contrains_names:
-                try:
-                    val = float(Fraction(input("enter the value of %s in %s: >" % (temp, variable))))
-                except ValueError:
-                    print("please ensure you enter a number")
-                    val = float(Fraction(input("enter the value of %s in %s: >" % (temp, variable))))
-                col_values.append(val)
-            equate_prod = float(Fraction(input('equate %s to: >' % variable)))
-            col_values.append(equate_prod)
-
-        filas_finales = stdz_rows2(col_values)
-        i = len(contrains_names) + 1
-        while len(contrains_names) < quantity_constrains + quantity_variables:
-            contrains_names.append('X' + str(i))
-            solutions.append('X' + str(i))
-            i += 1
-        solutions.append(' Z')
-        solutions[:] = []
-        add_from = len(contrains_names) + 1
-        while len(contrains_names) < len(filas_finales[0][:-1]):
-            removable_vars.append('X' + str(add_from))
-            contrains_names.append('X' + str(add_from))
-            add_from += 1
-        removable_vars.append(' Z')
-        removable_vars.append('Z1')
-        contrains_names.append('Solution')
-        for ems in removable_vars:
-            solutions.append(ems)
-        while len(z_equation) < len(filas_finales[0]):
-            z_equation.append(0)
-        filas_finales.append(z_equation)
-        filas_finales.append(z2_equation)
-        columnas_finales = np.array(filas_finales).T.tolist()
-        print('\n##########################################')
-        minimization(filas_finales, columnas_finales)
+        return problem_minimization()
 
     else:
         sys.exit("you enter a wrong problem choice ->" + str(problem_type))
+
+
+def problem_maximization():
+    while len(z_equation) <= (
+            quantity_variables + quantity_constrains):  # se hace porque la cantidad de variables finales (variables mas variebles de olgura) son la suma de estos
+        z_equation.append(0)
+
+    # Crea la tabla para empezar el metodo simplex
+    filas_finales = stdz_rows(col_values)
+    i = len(contrains_names) + 1
+    # agrega las estiquetas X de variables de holgura
+    while len(contrains_names) < len(filas_finales[0]) - 1:
+        contrains_names.append('X' + str(i))
+        solutions.append('X' + str(i))
+        i += 1
+    solutions.append(' Z')
+    contrains_names.append('Solution')
+    filas_finales.append(z_equation)  # Se agrega a la tabla la funcion restricion transformada
+    columnas_finales = np.array(
+        filas_finales).T.tolist()  # Se transforma la matriz y luego se convierte a una lista
+    print('\n##########################################')
+    maximization(filas_finales, columnas_finales)
+    return data
+
+
+def problem_minimization():
+    for i in contrains_names:
+        try:
+            val = float(Fraction(input("enter the value of %s in Z equation: >" % i)))
+        except ValueError:
+            print("please enter a number")
+            val = float(Fraction(input("enter the value of %s in Z equation: >" % i)))
+        z_equation.append(val)
+    z_equation.append(0)
+
+    while len(z_equation) <= (quantity_variables + quantity_constrains):
+        z_equation.append(0)
+    print("__________________________________________________")
+    for variable in constrains_names:
+        for temp in contrains_names:
+            try:
+                val = float(Fraction(input("enter the value of %s in %s: >" % (temp, variable))))
+            except ValueError:
+                print("please ensure you enter a number")
+                val = float(Fraction(input("enter the value of %s in %s: >" % (temp, variable))))
+            col_values.append(val)
+        equate_prod = float(Fraction(input('equate %s to: >' % variable)))
+        col_values.append(equate_prod)
+
+    filas_finales = stdz_rows2(col_values)
+    i = len(contrains_names) + 1
+    while len(contrains_names) < quantity_constrains + quantity_variables:
+        contrains_names.append('X' + str(i))
+        solutions.append('X' + str(i))
+        i += 1
+    solutions.append(' Z')
+    solutions[:] = []
+    add_from = len(contrains_names) + 1
+    while len(contrains_names) < len(filas_finales[0][:-1]):
+        removable_vars.append('X' + str(add_from))
+        contrains_names.append('X' + str(add_from))
+        add_from += 1
+    removable_vars.append(' Z')
+    removable_vars.append('Z1')
+    contrains_names.append('Solution')
+    for ems in removable_vars:
+        solutions.append(ems)
+    while len(z_equation) < len(filas_finales[0]):
+        z_equation.append(0)
+    filas_finales.append(z_equation)
+    filas_finales.append(z2_equation)
+    columnas_finales = np.array(filas_finales).T.tolist()
+    print('\n##########################################')
+    minimization(filas_finales, columnas_finales)
+    print(data)
 
 
 def maximization(filas_tabla, columnas_tabla):
@@ -128,6 +153,10 @@ def maximization(filas_tabla, columnas_tabla):
         final_pd = pd.DataFrame(np.array(filas_tabla), columns=contrains_names,
                                 index=solutions)  # Organiza graficamente con pandas la tabla con sus encabezados y filas
         print(final_pd)  # imprime la tabla
+        result = json.loads(final_pd.to_json(orient='split'))
+        print(result)
+        data.append(result)
+
     except:
         print('  ', contrains_names)
         i = 0
@@ -196,9 +225,17 @@ def maximization(filas_tabla, columnas_tabla):
             min_manager = 1
         else:
             min_manager = 0
+        print(type(data[-1]))
+        temp = data[-1]
+        # temp = json.loads(data[-1])
         print('pivot element: %s' % pivot_element)
+        temp['pivot_element'] = pivot_element
         print('pivot column: ', columna_pivote)
+        temp['pivot_column'] = columna_pivote
         print('pivot row: ', fila_pivote)
+        temp['pivot_row'] = fila_pivote
+        json.dumps(temp)
+        data[-1] = temp
         print("\n")
         solutions[posicion_pivote_fila] = contrains_names[
             posicion_pivote_col]  # SACA LA VARIABLE Y ENTRA LA VARIABLE DE LA COLUMNA
@@ -206,6 +243,9 @@ def maximization(filas_tabla, columnas_tabla):
         print(" %d TABLA AU" % count)
         try:
             final_pd = pd.DataFrame(np.array(filas_tabla), columns=contrains_names, index=solutions)
+            result = json.loads(final_pd.to_json(orient='split'))
+            print(result)
+            data.append(result)
             print(final_pd)
         except:
             print("%d TABLEAU" % count)
@@ -425,10 +465,6 @@ def stdz_rows(column_values):
         i += 1  # aumente para agregar el uno en la siguiente columna
 
     return final_cols
-
-
-if __name__ == "__main__":
-    main()
 
 # I use python list and arrays(numpy) in most of this program
 # it became simple coz python has a strong power in list and array manipulation and solution

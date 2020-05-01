@@ -1,4 +1,4 @@
-from simplex import main
+from simplex import principal
 
 
 class Simplex:
@@ -22,7 +22,7 @@ class Simplex:
 
     def calculate(self):
         print("Aca se podrian empezar a hacer las operaciones")
-        main()
+        principal()
         # self.col_values = self.cantidad_variables + self.cantidad_constrains
 
     # creating object of the class
