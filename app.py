@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request
 from datetime import datetime
+from SimplexClass import Simplex
+import json
 
 app = Flask(__name__)
 
@@ -17,6 +19,15 @@ def index():
 
     if request.method == 'POST':
         print('POST', request.form)
+        qv = request.args.get('quantity_variables')
+        qc = request.args.get('quantity_constrains')
+        cv = request.args.get('col_values')
+        zeq = request.args.get('z_equation')
+        obj = Simplex(qv, qc, cv, zeq)
+        obj.display()
+        print(obj.calculate())
+        return json.dumps({'status': 200, 'msg': 'Todo bien'})
+
     return render_template('home.html')
 
 
