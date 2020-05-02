@@ -2,6 +2,7 @@
     Website styles, 2020
 
     Author: Luis Guillermo Gómez Galeano <luis.gomez@usantooto.edu.co>
+    Author: Oscar Javier Gómez Sanchez <oscar.gomezs@usantooto.edu.co>
 */
 
 body {
@@ -115,4 +116,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Footer */
 .site-footer {
     background: rgba(0, 0, 0, 0.8);
+}
+
+.site-footer a {
+    color: #fdc134;
 }

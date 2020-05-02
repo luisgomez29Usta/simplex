@@ -66,7 +66,8 @@ $(document).ready(function () {
      * Generar campos para ingresar los datos del modelo
      */
     $('#next-1').on('click', function () {
-        generateInputs()
+        generateInputs();
+        $("#data-container").removeClass('d-none');
     })
 
 

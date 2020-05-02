@@ -11,7 +11,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">SimplexCalc</a>
+            <a class="navbar-brand" href="/">SimplexCalc</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -50,39 +50,20 @@
 <main>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-7">
-                <div class="card my-5">
-                    <div class="card-body">
-                        <h5 class="card-title text-center mb-4">Recolectando datos</h5>
-                        <div id="simplex_data">
-                            <div class="form-group">
-                                <label for="amount_variables">Ingresa la cantidad de variables</label>
-                                <input type="text" class="form-control" name="amount_variables" id="amount_variables">
-                            </div>
-                            <div class="form-group">
-                                <label for="amount_restrictions">Ingresa la cantidad de funciones restricción</label>
-                                <input type="text" class="form-control" name="amount_restrictions"
-                                       id="amount_restrictions">
-                            </div>
-                            <button type="button" id="next-1" class="btn-custom-primary m-auto d-block">
-                                Continuar
-                            </button>
+            <div class="col-12 col-md-10 col-lg-7">
+                <div class="card card-body mt-5 mb-4">
+                    <h5 class="card-title text-center mb-5">Recolectando datos</h5>
+                    <div id="simplex_data">
+                        <div class="form-group">
+                            <label for="amount_variables">Ingresa la cantidad de variables</label>
+                            <input type="text" class="form-control" name="amount_variables" id="amount_variables">
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-7">
-                <div class="card my-5">
-                    <div class="card-body">
-                        <h5 class="card-title text-center mb-4">Organizando la información</h5>
-                        <p class="card-text">Ingrese los coeficientes de la función objetivo</p>
-                        <div id="coefficient-div" class="input-group"></div>
-                        <p class="card-text my-3">Ingrese las funciones restricción</p>
-                        <div id="restriction-div" class="mb-5"></div>
-                        <p class="text-center" id="non-negative-variables"></p>
-                        <button type="button" id="btn_send" class="btn-custom-primary m-auto d-block">
+                        <div class="form-group">
+                            <label for="amount_restrictions">Ingresa la cantidad de funciones restricción</label>
+                            <input type="text" class="form-control" name="amount_restrictions"
+                                   id="amount_restrictions">
+                        </div>
+                        <button type="button" id="next-1" class="btn-custom-primary m-auto d-block">
                             Continuar
                         </button>
                     </div>
@@ -90,22 +71,41 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-7">
+            <div class="col-12 col-md-10 col-lg-7 d-none" id="data-container">
+                <div class="card card-body my-4">
+                    <h5 class="card-title text-center mb-5">Organizando la información</h5>
+                    <p class="card-text">Ingrese los coeficientes de la función objetivo</p>
+                    <div id="coefficient-div" class="input-group"></div>
+                    <p class="card-text my-3">Ingrese las funciones restricción</p>
+                    <div id="restriction-div" class="mb-5"></div>
+                    <p class="text-center" id="non-negative-variables"></p>
+                    <button type="button" id="btn_send" class="btn-custom-primary m-auto d-block">
+                        Continuar
+                    </button>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-7">
                 <div id="results"></div>
             </div>
         </div>
     </div>
 </main>
 
-<footer class="site-footer text-white py-4">
+<footer class="site-footer text-white py-4 mt-5">
     <div class="container">
         <div class="row">
-            <div class="col-4">
-                <h5 class="text-white">Desarrolladores</h5>
+            <div class="col-lg-6 col-xs-12 text-lg-left text-center">
+                <h3 class="font-weight-bold text-white">Desarrolladores</h3>
                 <p class="m-0">Luis Guillermo Gómez Galeano</p>
                 <p>Email: <a href="mailto:luis.gomez@usantoto.edu.co">luis.gomez@usantoto.edu.co</a></p>
                 <p class="m-0">Oscar Javier Gómez Sánchez</p>
-                <p class="m-0">Email: <a href="mailto:oscar.gomezs@usantoto.edu.co">oscar.gomezs@usantoto.edu.co</a></p>
+                <p>Email: <a href="mailto:oscar.gomezs@usantoto.edu.co">oscar.gomezs@usantoto.edu.co</a></p>
+            </div>
+            <div class="col-lg-6 col-xs-12 text-lg-right text-center">
+                <h3 class="font-weight-bold text-white">Universidad Santo Tomas Tunja</h3>
             </div>
         </div>
         <hr class="bg-white">
