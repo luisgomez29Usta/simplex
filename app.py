@@ -27,7 +27,8 @@ def index():
         zeq = [(0 - values) for values in content['z_equation']]
         # print(qv, qc, cv, zeq)
         final_result = principal(qv, qc, cv, zeq)
-        return json.dumps({'status': 200, 'msg': 'Todo bien', 'result': final_result})
+        print(final_result)
+        return json.dumps({'status': 200, 'msg': 'Todo bien', 'data': final_result})
 
     return render_template('home.html')
 

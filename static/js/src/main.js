@@ -94,10 +94,57 @@ $(document).ready(function () {
                 z_equation: z_equation
             })
         }).done(function (res) {
-            console.log(res)
+            showResults(res);
             //window.location.href = res.url;
         }).fail(function (error) {
             console.log("error:", error);
         })
-    })
+    });
+
+    function showResults(data) {
+        let html = ``;
+        $.each(data.data, function (index, obj) {
+            html += `<div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                        <thead><tr><th scope="col">Base</th>`;
+            $.each(obj.columns, function (index, value) {
+                html += `<th scope="col">${value}</th>`;
+            });
+            html += `</tr></thead><tbody>`;
+            $.each(obj.data, function (index, value) {
+                html += `<tr> <th scope="row">${obj.index[index]}</th>`;
+                $.each(value, function (index, value) {
+                    html += `<td>${value}</td>`;
+                });
+                html += `</tr>`;
+            });
+            html += `</tbody></table></div>`;
+
+            if (index < (data.data.length - 1)) {
+                html += `<div class="card card-body">
+                        <p class="card-text">Pivote: <span class="badge badge-primary badge-pill">${obj.pivot_element}</span></p>
+                        <p class="card-text">Fila pivote: <span class="badge badge-primary badge-pill">`;
+                for (let i = 0; i < obj.pivot_row.length; i++) {
+                    html += `${obj.pivot_row[i]} ${i !== (obj.pivot_row.length - 1) ? ',' : ''} `;
+                }
+                html += `</span></p>
+                    <p class="card-text">Columna pivote: <span class="badge badge-primary badge-pill">`;
+                for (let i = 0; i < obj.pivot_column.length; i++) {
+                    html += `${obj.pivot_column[i]} ${i !== (obj.pivot_column.length - 1) ? ',' : ''} `;
+                }
+                html += `</span></p></div><hr>`;
+            }
+            if (index === (data.data.length - 1)) {
+                html += `<div class="card card-body mb-5">
+                <h5 class="card-title">Solución óptima</h5>`;
+
+                $.each(obj.data, function (index, value) {
+                    html += `<p class="card-text font-weight-bold">${obj.index[index]} = ${value[value.length - 1]}</p>`;
+                });
+
+                html += `</div>`;
+            }
+        });
+        $('#results').html(html);
+    }
 });
