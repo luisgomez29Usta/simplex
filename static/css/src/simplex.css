@@ -1,3 +1,118 @@
-.hidden {
-    display: none;
+/**
+    Website styles, 2020
+
+    Author: Luis Guillermo Gómez Galeano <luis.gomez@usantooto.edu.co>
+*/
+
+body {
+    background: #fff;
+    color: #2f3138;
+    font-family: "Open Sans", sans-serif;
+}
+
+a {
+    color: #f8234a;
+    transition: 0.5s;
+}
+
+a:hover, a:active, a:focus {
+    color: #f8234a;
+    outline: none;
+    text-decoration: none;
+}
+
+p {
+    padding: 0;
+    margin: 0 0 30px 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Raleway", sans-serif;
+    font-weight: 400;
+    margin: 0 0 20px 0;
+    padding: 0;
+    color: #0e1b4d;
+}
+
+.badge.badge-custom-primary {
+    border: 2px solid #0e1b4d;
+    color: #0e1b4d;
+}
+
+.main-page {
+    margin-top: 70px;
+}
+
+.bg-color-main-page {
+    background: rgba(6, 12, 34, .8);
+}
+
+.main-title {
+    color: #f8234a;
+    font-weight: bold;
+}
+
+.tweet-form textarea {
+    color: #fff;
+    background: transparent;
+}
+
+.tweet-form textarea:focus {
+    box-shadow: none;
+    color: #fff;
+    background: transparent;
+}
+
+.tweet-form button[type="submit"] {
+    color: #fff;
+    background: #f82249;
+    padding: 7px 22px;
+    border-radius: 50px;
+    border: 2px solid #f82249;
+    transition: all ease-in-out 0.3s;
+    font-weight: 500;
+    margin-left: 8px;
+    margin-top: 2px;
+    line-height: 1;
+}
+
+.tweet-form button[type="submit"]:hover {
+    background: none;
+}
+
+
+.bg-main-title {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.bg-main-title h1 {
+    color: #fff;
+    font-weight: bold;
+}
+
+.results-content input[type="submit"],
+.btn-custom-primary {
+    color: #f82249;;
+    background: none;
+    padding: 7px 22px;
+    border-radius: 50px;
+    border: 2px solid #f82249;
+    transition: all ease-in-out 0.3s;
+    font-weight: 500;
+    margin-left: 8px;
+    margin-top: 2px;
+    line-height: 1;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.results-content input[type="submit"]:hover,
+.btn-custom-primary:hover {
+    background: #f82249;
+    color: #fff;
+}
+
+/* Footer */
+.site-footer {
+    background: rgba(0, 0, 0, 0.8);
 }

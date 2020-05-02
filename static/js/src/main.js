@@ -122,13 +122,13 @@ $(document).ready(function () {
 
             if (index < (data.data.length - 1)) {
                 html += `<div class="card card-body">
-                        <p class="card-text">Pivote: <span class="badge badge-primary badge-pill">${obj.pivot_element}</span></p>
-                        <p class="card-text">Fila pivote: <span class="badge badge-primary badge-pill">`;
+                        <p class="card-text">Pivote: <span class="badge badge-custom-primary badge-pill">${obj.pivot_element}</span></p>
+                        <p class="card-text">Fila pivote: <span class="badge badge-custom-primary badge-pill">`;
                 for (let i = 0; i < obj.pivot_row.length; i++) {
                     html += `${obj.pivot_row[i]} ${i !== (obj.pivot_row.length - 1) ? ',' : ''} `;
                 }
                 html += `</span></p>
-                    <p class="card-text">Columna pivote: <span class="badge badge-primary badge-pill">`;
+                    <p class="card-text">Columna pivote: <span class="badge badge-custom-primary badge-pill">`;
                 for (let i = 0; i < obj.pivot_column.length; i++) {
                     html += `${obj.pivot_column[i]} ${i !== (obj.pivot_column.length - 1) ? ',' : ''} `;
                 }

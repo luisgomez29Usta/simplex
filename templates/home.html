@@ -64,8 +64,7 @@
                                 <input type="text" class="form-control" name="amount_restrictions"
                                        id="amount_restrictions">
                             </div>
-                            <button type="button" id="next-1"
-                                    class="btn btn-outline-success rounded-pill m-auto d-block px-4">
+                            <button type="button" id="next-1" class="btn-custom-primary m-auto d-block">
                                 Continuar
                             </button>
                         </div>
@@ -83,8 +82,7 @@
                         <p class="card-text my-3">Ingrese las funciones restricción</p>
                         <div id="restriction-div" class="mb-5"></div>
                         <p class="text-center" id="non-negative-variables"></p>
-                        <button type="button" id="btn_send"
-                                class="btn btn-outline-success rounded-pill m-auto d-block px-4">
+                        <button type="button" id="btn_send" class="btn-custom-primary m-auto d-block">
                             Continuar
                         </button>
                     </div>
@@ -93,64 +91,27 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-7">
-                <div id="results">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="card card-body">
-                        <p class="card-text">Pivote: 2</p>
-                    </div>
-                    <hr>
-                </div>
+                <div id="results"></div>
             </div>
         </div>
     </div>
 </main>
 
-<footer class="bg-dark text-white py-4">
+<footer class="site-footer text-white py-4">
     <div class="container">
         <div class="row">
             <div class="col-4">
-                <h5>Desarrolladores</h5>
+                <h5 class="text-white">Desarrolladores</h5>
                 <p class="m-0">Luis Guillermo Gómez Galeano</p>
-                <p>Email: luis.gomez@usantoto.edu.co</p>
+                <p>Email: <a href="mailto:luis.gomez@usantoto.edu.co">luis.gomez@usantoto.edu.co</a></p>
                 <p class="m-0">Oscar Javier Gómez Sánchez</p>
-                <p class="m-0">Email: oscar.gomezs@usantoto.edu.co</p>
+                <p class="m-0">Email: <a href="mailto:oscar.gomezs@usantoto.edu.co">oscar.gomezs@usantoto.edu.co</a></p>
             </div>
         </div>
         <hr class="bg-white">
         <div class="row">
             <div class="col-12">
-                <small class="d-block text-center">© {{ now.year }} SimplexCalc Colombia. Todos los derechos
-                    reservados</small>
+                <small class="d-block text-center">© {{ now.year }} SimplexCalc. Todos los derechos reservados</small>
             </div>
         </div>
     </div>
