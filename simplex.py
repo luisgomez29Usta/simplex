@@ -49,7 +49,8 @@ def principal(quantity_variables1, quantity_constrains1, col_values1, z_equation
     global col_values
     global z_equation
     global data
-
+    data.clear()
+    print(data)
     col_values = col_values1
     z_equation = z_equation1
     quantity_constrains = quantity_constrains1
@@ -88,6 +89,8 @@ def problem_maximization():
         filas_finales).T.tolist()  # Se transforma la matriz y luego se convierte a una lista
     print('\n##########################################')
     maximization(filas_finales, columnas_finales)
+    print(data)
+    solutions.clear()
     return data
 
 
@@ -148,16 +151,23 @@ def maximization(filas_tabla, columnas_tabla):
     ultima_fila = filas_tabla[-1]  # Obtiene la ultima culumna de la tabla (matriz) es decir la funcion objetivo
     min_last_row = min(ultima_fila)  # obtiene el elemento menor
     min_manager = 1
-    print(" 1 TABLEAU")
+    print(" 1 TABLEAUUUUU")
+    print(type(data))
+    print(filas_tabla)
+    print(constrains_names)
+    print(solutions)
     try:
-        final_pd = pd.DataFrame(np.array(filas_tabla), columns=contrains_names,
-                                index=solutions)  # Organiza graficamente con pandas la tabla con sus encabezados y filas
-        print(final_pd)  # imprime la tabla
+        final_pd = pd.DataFrame(np.array(filas_tabla), columns=contrains_names, index=solutions)  # Organiza graficamente con pandas la tabla con sus encabezados y filas
+        # print(final_pd)
+        # print(final_pd)  # imprime la tabla
         result = json.loads(final_pd.to_json(orient='split'))
-        print(result)
+        print(final_pd.to_json(orient='split'))
         data.append(result)
+        print(data)
 
-    except:
+    except Exception as ex:
+        print("OCCURRED AN EXCEPTION")
+        print(ex)
         print('  ', contrains_names)
         i = 0
         for cols in filas_tabla:
