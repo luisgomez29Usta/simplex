@@ -8,41 +8,10 @@
     <title>SimplexCalc - Optimización</title>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<header id="main-header">
+    <nav class="navbar navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">SimplexCalc</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse float-right" id="menu">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
-            </div>
+            <h1 class="w-100"><a href="/" class="text-white text-center d-block font-weight-bold">SimplexCalc</a></h1>
         </div>
     </nav>
 </header>
@@ -52,38 +21,41 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-7">
                 <div class="card card-body mt-5 mb-4">
-                    <h5 class="card-title text-center mb-5">Recolectando datos</h5>
-                    <div id="simplex_data">
+                    <h4 class="card-title text-center mb-5">Recolectando datos</h4>
+                    <form id="simplex_data" method="post">
                         <div class="form-group">
                             <label for="amount_variables">Ingresa la cantidad de variables</label>
-                            <input type="text" class="form-control" name="amount_variables" id="amount_variables">
+                            <input type="text" class="form-control form-control-sm" name="amount_variables"
+                                   id="amount_variables">
                         </div>
                         <div class="form-group">
                             <label for="amount_restrictions">Ingresa la cantidad de funciones restricción</label>
-                            <input type="text" class="form-control" name="amount_restrictions"
+                            <input type="text" class="form-control form-control-sm" name="amount_restrictions"
                                    id="amount_restrictions">
                         </div>
-                        <button type="button" id="next-1" class="btn-custom-primary m-auto d-block">
+                        <button type="submit" id="next-1" class="btn-custom-primary m-auto d-block">
                             Continuar
                         </button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-12 col-md-10 col-lg-7 d-none" id="data-container">
-                <div class="card card-body my-4">
-                    <h5 class="card-title text-center mb-5">Organizando la información</h5>
-                    <p class="card-text">Ingrese los coeficientes de la función objetivo</p>
-                    <div id="coefficient-div" class="input-group"></div>
-                    <p class="card-text my-3">Ingrese las funciones restricción</p>
-                    <div id="restriction-div" class="mb-5"></div>
-                    <p class="text-center" id="non-negative-variables"></p>
-                    <button type="button" id="btn_send" class="btn-custom-primary m-auto d-block">
-                        Continuar
-                    </button>
-                </div>
-                <hr>
+            <div class="col-12 col-md-10 col-lg-7">
+                <form method="post" class="d-none" id="data-container">
+                    <div class="card card-body my-4">
+                        <h4 class="card-title text-center mb-5">Organizando la información</h4>
+                        <p class="card-text">Ingrese los coeficientes de la función objetivo</p>
+                        <div id="coefficient-div" class="input-group"></div>
+                        <p class="card-text my-3">Ingrese las funciones restricción</p>
+                        <div id="restriction-div" class="mb-3"></div>
+                        <p class="text-center" id="non-negative-variables"></p>
+                        <button type="submit" id="btn_send" class="btn-custom-primary m-auto d-block">
+                            Continuar
+                        </button>
+                    </div>
+                    <hr>
+                </form>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -117,8 +89,8 @@
     </div>
 </footer>
 <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.validate.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/src/main.js') }}"></script>
 </body>
 </html>

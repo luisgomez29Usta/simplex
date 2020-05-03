@@ -62,19 +62,77 @@ $(document).ready(function () {
                 <option value="1" selected="">≤</option><option value="2">≥</option><option value="3">=</option></select>`;
     }
 
-    /**
-     * Generar campos para ingresar los datos del modelo
-     */
-    $('#next-1').on('click', function () {
-        generateInputs();
-        $("#data-container").removeClass('d-none');
-    })
+    // Validar formulario y generar campos para ingresar los datos del modelo
+    $("#simplex_data").validate({
+        errorClass: "text-danger label-validate",
+        submitHandler: (form, event) => {
+            event.preventDefault();
+            generateInputs();
+            $("#data-container").removeClass('d-none');
+            validateData();
+        },
+        rules: {
+            amount_variables: {
+                required: true,
+                maxlength: 5,
+                number: true
+            },
+            amount_restrictions: {
+                required: true,
+                number: true,
+                maxlength: 5
+            }
+        },
+        messages: {
+            amount_variables: {
+                required: "Este campo es obligatorio",
+                number: "Ingresa un número valido",
+                maxlength: "Los caracteres ingresados son demasiados!"
+            },
+            amount_restrictions: {
+                required: "Este campo es obligatorio",
+                number: "Ingresa un número valido",
+                maxlength: "Los caracteres ingresados son demasiados!"
+            }
+        }
+    });
 
+    // Validar formulario cuando ingresa los datos del modelo
+    $("#data-container").validate({
+        highlight: function (element) {
+            $(element).addClass("border-danger");
+        },
+        unhighlight: function (element) {
+            $(element).removeClass("border-danger");
+        },
+        submitHandler: (form, event) => {
+            event.preventDefault()
+            sendData()
+        }
+    });
 
     /**
-     * Enviar datos para solucionar el modelo
+     *  Validar los campos de texto cuando el usuario ingresa el modelo
      */
-    $('#btn_send').on('click', function () {
+    function validateData() {
+        $('[name^="coefficient"], [name^="restriction"]').each(function () {
+            $(this).rules('add', {
+                required: true,
+                number: true,
+                maxlength: 5,
+                messages: {
+                    required: "",
+                    number: "",
+                    maxlength: ""
+                }
+            })
+        });
+    }
+
+    /**
+     * Enviar datos al servidor para solucionar el modelo
+     */
+    function sendData() {
         let col_values = []
         let z_equation = []
         $("input[name^='restriction']").each(function () {
@@ -96,12 +154,15 @@ $(document).ready(function () {
             })
         }).done(function (res) {
             showResults(res);
-            //window.location.href = res.url;
         }).fail(function (error) {
             console.log("error:", error);
         })
-    });
+    }
 
+    /**
+     * Mostrar resultados
+     * @param data Datos en formato JSON
+     */
     function showResults(data) {
         let html = ``;
         $.each(data.data, function (index, obj) {
@@ -137,7 +198,7 @@ $(document).ready(function () {
             }
             if (index === (data.data.length - 1)) {
                 html += `<div class="card card-body mb-5">
-                <h5 class="card-title">Solución óptima</h5>`;
+                <h4 class="card-title">Solución óptima</h4>`;
 
                 $.each(obj.data, function (index, value) {
                     html += `<p class="card-text font-weight-bold">${obj.index[index]} = ${value[value.length - 1]}</p>`;
@@ -148,4 +209,5 @@ $(document).ready(function () {
         });
         $('#results').html(html);
     }
+
 });

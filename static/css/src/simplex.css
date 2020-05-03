@@ -5,6 +5,15 @@
     Author: Oscar Javier Gómez Sanchez <oscar.gomezs@usantooto.edu.co>
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* Variables */
+:root {
+    --main-color: #f8234a;
+    --main-bg-color: rgba(0, 0, 0, 0.8);
+    --main-font-color: #0e1b4d;
+}
+
 body {
     background: #fff;
     color: #2f3138;
@@ -12,12 +21,12 @@ body {
 }
 
 a {
-    color: #f8234a;
+    color: var(--main-color);
     transition: 0.5s;
 }
 
 a:hover, a:active, a:focus {
-    color: #f8234a;
+    color: var(--main-color);
     outline: none;
     text-decoration: none;
 }
@@ -32,58 +41,38 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
     margin: 0 0 20px 0;
     padding: 0;
-    color: #0e1b4d;
+    color: var(--main-font-color);
 }
 
+/* Bootstrap Badge */
 .badge.badge-custom-primary {
-    border: 2px solid #0e1b4d;
-    color: #0e1b4d;
+    border: 2px solid var(--main-font-color);
+    color: var(--main-font-color);
+}
+
+/* Estilos de validación de formularios */
+label.label-validate {
+    font-size: .8em !important;
+    margin: 0;
+}
+
+/* Estilos del sitio */
+
+#main-header nav {
+    background: var(--main-bg-color);
 }
 
 .main-page {
     margin-top: 70px;
 }
 
-.bg-color-main-page {
-    background: rgba(6, 12, 34, .8);
-}
-
 .main-title {
-    color: #f8234a;
+    color: var(--main-color);
     font-weight: bold;
 }
 
-.tweet-form textarea {
-    color: #fff;
-    background: transparent;
-}
-
-.tweet-form textarea:focus {
-    box-shadow: none;
-    color: #fff;
-    background: transparent;
-}
-
-.tweet-form button[type="submit"] {
-    color: #fff;
-    background: #f82249;
-    padding: 7px 22px;
-    border-radius: 50px;
-    border: 2px solid #f82249;
-    transition: all ease-in-out 0.3s;
-    font-weight: 500;
-    margin-left: 8px;
-    margin-top: 2px;
-    line-height: 1;
-}
-
-.tweet-form button[type="submit"]:hover {
-    background: none;
-}
-
-
 .bg-main-title {
-    background: rgba(0, 0, 0, 0.8);
+    background: var(--main-bg-color);
 }
 
 .bg-main-title h1 {
@@ -93,11 +82,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .results-content input[type="submit"],
 .btn-custom-primary {
-    color: #f82249;;
+    color: var(--main-color);
     background: none;
     padding: 7px 22px;
     border-radius: 50px;
-    border: 2px solid #f82249;
+    border: 2px solid var(--main-color);
     transition: all ease-in-out 0.3s;
     font-weight: 500;
     margin-left: 8px;
@@ -109,13 +98,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .results-content input[type="submit"]:hover,
 .btn-custom-primary:hover {
-    background: #f82249;
+    background: var(--main-color);
     color: #fff;
 }
 
 /* Footer */
 .site-footer {
-    background: rgba(0, 0, 0, 0.8);
+    background: var(--main-bg-color);
 }
 
 .site-footer a {
