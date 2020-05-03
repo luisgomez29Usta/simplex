@@ -19,14 +19,14 @@ def index():
 
     if request.method == 'POST':
         content = request.get_json()
-        print(content)
-        qv = int(content['quantity_variables'])
-        qc = int(content['quantity_constrains'])
-        cv = [float(values) for values in content['col_values']]
-        zeq = [(0 - values) for values in content['z_equation']]
-        # print(qv, qc, cv, zeq)
-        final_result = principal(qv, qc, cv, zeq)
-        print(final_result)
+
+        quantity_variables = int(content['quantity_variables'])
+        quantity_constrains = int(content['quantity_constrains'])
+        values = [float(values) for values in content['col_values']]
+        z_equation = [(0 - values) for values in content['z_equation']]
+
+        final_result = principal(quantity_variables, quantity_constrains, values, z_equation)
+
         return json.dumps({'status': 200, 'msg': 'Todo bien', 'data': final_result})
 
     return render_template('home.html')
