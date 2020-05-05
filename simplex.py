@@ -1,11 +1,11 @@
-import sys  # provee acceso a funciones y objetos mantenidos por del intérprete.
+# import sys  # provee acceso a funciones y objetos mantenidos por del intérprete.
 import numpy as np  # da mayor soporte para el manejo de vectores y matrices
 import json  # permite la manipulación de tipos de datos json
-from fractions import Fraction  # para convertir números decimales a fracciones
+
+# from fractions import Fraction  # para convertir números decimales a fracciones
 
 try:
     import pandas as pd  # se utiliza para operaciones y manipulaciones de datos estructurados.
-
     # Es muy habitual usarlo en la fase de depuración y preparación de los datos.
 
     pandas_av = True
@@ -40,7 +40,8 @@ please check again the formulation of constrains
 
 def principal(quantity_variables1, quantity_constrains1, col_values1, z_equation1):
     """
-    Función principal que recibe la información necesaria para aplicar el método simple
+    Función principal que recibe la información necesaria para aplicar el método simplex
+
     :param quantity_variables1: Cantidad de variables del problema
     :param quantity_constrains1: Cantidad de funciones restricción
     :param col_values1: Coeficientes de las variables de las funciones restricción
@@ -77,7 +78,8 @@ def principal(quantity_variables1, quantity_constrains1, col_values1, z_equation
 def problem_maximization():
     """
     Realiza las operaciones para maximizar el resultado.
-    :return: Nothing
+
+    :return: None
     """
 
     # se fija la cantidad de variables X finales que están determinadas por la suma
@@ -106,14 +108,15 @@ def problem_maximization():
 
 def maximization(table_rows, table_columns):
     """
-    Se encarga de todo el proceso de determinar los pivotes, aplicar la solución con Gauss hasta terminar :param
-    table_rows: Arreglo bidimensional de los valores de las filas de las tablas que se construyen para determinar la
-    fila y columna pivote :param table_columns:  Arreglo bidimensional de los valores de las columnas de las tablas
+    Se encarga de todo el proceso de determinar los pivotes, aplicar la solución con Gauss hasta terminar
+
+    :param table_rows: Arreglo bidimensional de los valores de las filas de las tablas que se construyen para determinar
+    la fila y columna pivote
+    :param table_columns: Arreglo bidimensional de los valores de las columnas de las tablas
     que se construyen para determinar la fila y columna pivote
     :return: None
     """
     row_app = []
-    final_pd = None
 
     # Obtiene la ultima columna de la tabla (matriz), la función objetivo
     last_row = table_rows[-1]
