@@ -219,7 +219,8 @@ def maximization(table_rows, table_columns):
         temp['pivot_element'] = pivot_element
         temp['pivot_column'] = pivot_column
         temp['pivot_row'] = fila_pivote
-        data[-1] = json.dumps(temp)
+        json.dumps(temp)
+        data[-1] = temp
         # SACA LA VARIABLE Y ENTRA LA VARIABLE DE LA COLUMNA
         solutions[pivot_position_row] = constrains_names[pivot_column_position]
 
