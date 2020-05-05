@@ -182,8 +182,8 @@ $(document).ready(function () {
             });
             html += `</tbody></table></div>`;
 
-            if (index < (data.data.length - 1)) {
-                html += `<div class="card card-body">
+            if (obj.pivot_column && obj.pivot_row) {
+                html += `<div class="card card-body mb-5">
                         <p class="card-text">Pivote: <span class="badge badge-custom-primary badge-pill">${obj.pivot_element}</span></p>
                         <p class="card-text">Fila pivote: <span class="badge badge-custom-primary badge-pill">`;
                 for (let i = 0; i < obj.pivot_row.length; i++) {
@@ -194,10 +194,10 @@ $(document).ready(function () {
                 for (let i = 0; i < obj.pivot_column.length; i++) {
                     html += `${obj.pivot_column[i]} ${i !== (obj.pivot_column.length - 1) ? ',' : ''} `;
                 }
-                html += `</span></p></div><hr>`;
+                html += `</span></p></div>`;
             }
             if (index === (data.data.length - 1)) {
-                html += `<div class="card card-body mb-5">
+                html += `<hr><div class="card card-body mt-4 mb-5">
                 <h4 class="card-title">Solución óptima</h4>`;
 
                 $.each(obj.data, function (index, value) {
