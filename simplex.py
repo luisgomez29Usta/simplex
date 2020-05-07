@@ -6,6 +6,7 @@ import json  # permite la manipulación de tipos de datos json
 
 try:
     import pandas as pd  # se utiliza para operaciones y manipulaciones de datos estructurados.
+
     # Es muy habitual usarlo en la fase de depuración y preparación de los datos.
 
     pandas_av = True
@@ -21,6 +22,8 @@ col_values = []
 z_equation = []
 constrains_names = []
 data = []
+
+count = 0
 
 problem_type = 1  # 1. Maximización  2. Minimización
 final_rows = []  #
@@ -106,9 +109,69 @@ def problem_maximization():
     maximization(filas_finales, columnas_finales)
 
 
+def find_pivot(last_column, pivot_column):
+    """
+
+    :param last_column: ultima columna ...
+    :param pivot_column:
+    :return:
+    """
+
+    division_column_results = []
+
+    i = 0
+    for _ in last_column:
+        try:
+            # empieza a hacer las divisiones para determinar la fila pivote
+            val = float(last_column[i] / pivot_column[i])
+            # pone un valor muy grande para ignorarlo cuando se busque el valor mayor a cero para determinar
+            # la fila pivote
+            if val <= 0:
+                val = 10000000000
+            else:
+                val = val
+            division_column_results.append(val)
+        except ZeroDivisionError:
+            # pone un valor muy grande para ignorarlo cuando se busque el valor mayor a cero para determinar la
+            # fila pivote
+            val = 10000000000
+            division_column_results.append(val)
+        i += 1
+    # obtiene el valor menor de la lista
+    min_div_val = min(division_column_results)
+    # Obtiene la posición del valor menor de la lista
+    index_min_div_val = division_column_results.index(min_div_val)
+    pivot_element = pivot_column[index_min_div_val]
+    return pivot_element, index_min_div_val, division_column_results
+
+
+def applying_gauss(table_rows, pivot_row, position_min_last_row, pivot_element):
+    for fila in table_rows:
+        if fila is not pivot_row and fila is not table_rows[-1]:
+            # divide los elementos de la columna pivote en el elemento pivote
+            form = fila[position_min_last_row] / pivot_element
+            final_val = np.array(pivot_row) * form  # multiplica el resultado anterior por la fila pivote
+            # redondea el resultado usando la cantidad de variables especificadas
+            new_col = (np.round((np.array(fila) - final_val), decimals)).tolist()
+            # remplaza la fila por la nueva fila. Aplicación de Gauss
+            table_rows[table_rows.index(fila)] = new_col
+
+        # si la fila actual es la fila pivote, lo que hace es dividirla por el elemento pivote
+        elif fila is pivot_row:
+            new_col = (np.round((np.array(fila) / pivot_element), decimals)).tolist()
+            table_rows[table_rows.index(fila)] = new_col
+        else:  # detecta que la fila es la función objetivo
+            # obtiene el valor absoluto del valor que esta en la columna pivote y lo divide por el pivote
+            form = abs(fila[position_min_last_row]) / pivot_element
+            final_val = np.array(pivot_row) * form
+            new_col = (np.round((np.array(fila) + final_val), decimals)).tolist()
+            table_rows[table_rows.index(fila)] = new_col
+    return table_rows
+
+
 def maximization(table_rows, table_columns):
     """
-    Se encarga de todo el proceso de determinar los pivotes, aplicar la solución con Gauss hasta terminar
+    Se encarga de all el proceso de determinar los pivotes, aplicar la solución con Gauss hasta terminar
 
     :param table_rows: Arreglo bidimensional de los valores de las filas de las tablas que se construyen para determinar
     la fila y columna pivote
@@ -117,92 +180,44 @@ def maximization(table_rows, table_columns):
     :return: None
     """
     row_app = []
+    global count
 
     # Obtiene la ultima columna de la tabla (matriz), la función objetivo
     last_row = table_rows[-1]
     # obtiene el elemento menor
     min_last_row = min(last_row)
     min_manager = 1
-    print(" 1 TABLA aumentada")
-    try:
-        # Organiza gráficamente con "pandas" la tabla con sus encabezados y filas
-        final_pd = pd.DataFrame(np.array(table_rows), columns=constrains_names, index=solutions)
-        print(final_pd)  # imprime la tabla
-        result = json.loads(final_pd.to_json(orient='split'))
-        print(result)
-        data.append(result)
-    except Exception as ex:
-        print(ex)
-        print('  ', constrains_names)
-        i = 0
-        for cols in table_rows:
-            print(solutions[i], cols)
-            i += 1
+
+    print_tables(table_rows)
 
     count = 2
     pivot_element = 2
+
     while min_last_row < 0 < pivot_element != 1 and min_manager == 1 and count < 6:
-        print("\n")
         last_row = table_rows[-1]  # Obtiene la ultima fila
         last_column = table_columns[-1]  # Obtiene la ultima columna
         min_last_row = min(last_row)  # Obtiene el elemento menor de la ultima fila
 
         # Obtiene la posición del elemento menor de la fila (función objetivo)
-        position_less_objective_function = last_row.index(min_last_row)
+        position_min_last_row = last_row.index(min_last_row)
         # Asigna a la variable cual es la columna objetivo
-        pivot_column = table_columns[position_less_objective_function]
+        pivot_column = table_columns[position_min_last_row]
         pivot_column_position = table_columns.index(pivot_column)
         # lista que va almacenando los resultados de las divisiones par luego determinar el menor y asi la fila pivote
-        division_column_results = []
-        i = 0
-        for _ in last_column[:-1]:  # toma todos los elementos de la lista, menos el último
-            try:
-                # empieza a hacer las divisiones para determinar la fila pivote
-                val = float(last_column[i] / pivot_column[i])
-                if val <= 0:
-                    # pone un valor muy grande para ignorarlo cuando se busque el valor mayor a cero para determinar
-                    # la fila pivote
-                    val = 10000000000
-                else:
-                    val = val
-                division_column_results.append(val)
-            except ZeroDivisionError:  # si la division es por cero, entre a la excepción
-                # pone un valor muy grande para ignorarlo cuando se busque el valor mayor a cero para determinar la
-                # fila pivote
-                val = 10000000000
-                division_column_results.append(val)
-            i += 1
-        min_div_val = min(division_column_results)  # obtiene el valor menor de la lista
-        # Obtiene la posición del valor menor de la lista
-        index_min_div_val = division_column_results.index(min_div_val)
-        # Se obtiene el elemento pivote usando la columna pivote y seleccionando el valor de la fila pivote
-        pivot_element = pivot_column[index_min_div_val]
-        fila_pivote = table_rows[index_min_div_val]
-        pivot_position_row = table_rows.index(fila_pivote)
-        row_app[:] = []  # [:] significa hacer una copia
-        for fila in table_rows:
-            if fila is not fila_pivote and fila is not table_rows[-1]:
-                # divide los elemento de la columna pivote en el elemento pivote
-                form = fila[position_less_objective_function] / pivot_element
-                final_val = np.array(fila_pivote) * form  # multiplica el resultado anterior por la fila pivote
-                # redondea el resultado usando la cantidad de variables especificadas
-                new_col = (np.round((np.array(fila) - final_val), decimals)).tolist()
-                # remplaza la fila por la nueva fila. Aplicación de Gauss
-                table_rows[table_rows.index(fila)] = new_col
 
-            # si la fila actual es la fila pivote, lo que hace es dividirla por el elemento pivote
-            elif fila is fila_pivote:
-                new_col = (np.round((np.array(fila) / pivot_element), decimals)).tolist()
-                table_rows[table_rows.index(fila)] = new_col
-            else:  # detecta que la fila es la función objetivo
-                # obtiene el valor absoluto del valor que esta en la columna pivote y lo divide por el pivote
-                form = abs(fila[position_less_objective_function]) / pivot_element
-                final_val = np.array(fila_pivote) * form
-                new_col = (np.round((np.array(fila) + final_val), decimals)).tolist()
-                table_rows[table_rows.index(fila)] = new_col
+        pivot_and_index_and_division_results = find_pivot(last_column[:-1], pivot_column)
+        division_column_results = pivot_and_index_and_division_results[2]
+        pivot_element = pivot_and_index_and_division_results[0]
+        pivot_row = table_rows[pivot_and_index_and_division_results[1]]
+        pivot_position_row = table_rows.index(pivot_row)
+        row_app[:] = []  # [:] significa hacer una copia
+
+        # Se hace la aplicación de Gauss
+        table_rows = applying_gauss(table_rows, pivot_row, position_min_last_row, pivot_element)
+
         table_columns[:] = []
         re_filas_tabla = np.array(table_rows).T.tolist()
-        # NUEVA TABLA PARA REALIZAR LA SIGUIENTE INTERACCIÓN
+        #  Se hace una lista bidimensional de las columnas
         table_columns = table_columns + re_filas_tabla
 
         if min(division_column_results) != 10000000000:
@@ -210,59 +225,21 @@ def maximization(table_rows, table_columns):
         else:
             min_manager = 0
 
-        print('pivot element: %s' % pivot_element)
-        print('pivot column: ', pivot_column)
-        print('pivot row: ', fila_pivote)
-        print("\n")
+        add_pivots_array(pivot_element, pivot_column, pivot_row)
 
-        temp = data[-1]
-        temp['pivot_element'] = pivot_element
-        temp['pivot_column'] = pivot_column
-        temp['pivot_row'] = fila_pivote
-        json.dumps(temp)
-        data[-1] = temp
         # SACA LA VARIABLE Y ENTRA LA VARIABLE DE LA COLUMNA
         solutions[pivot_position_row] = constrains_names[pivot_column_position]
 
-        print(" %d TABLA AUMENTADA" % count)
-        try:
-            final_pd = pd.DataFrame(np.array(table_rows), columns=constrains_names, index=solutions)
-            print(final_pd)
+        print_tables(table_rows, False)
 
-            result = json.loads(final_pd.to_json(orient='split'))
-            data.append(result)
-        except Exception as exep:
-            print(exep)
-            print("%d TABLA AU" % count)
-            print('  ', constrains_names)
-            i = 0
-            for cols in table_rows:
-                print(solutions[i], cols)
-                i += 1
         count += 1
         last_row = table_rows[-1]
         last_column = table_columns[-1]
         min_last_row = min(last_row)
-        position_less_objective_function = last_row.index(min_last_row)
-        pivot_column = table_columns[position_less_objective_function]
-        division_column_results = []
-        i = 0
-        for _ in last_column[:-1]:
-            try:
-                val = float(last_column[i] / pivot_column[i])
-                if val <= 0:
-                    val = 10000000000
-                else:
-                    val = val
-                division_column_results.append(val)
-            except ZeroDivisionError:
-                val = 10000000000
-                division_column_results.append(val)
-            i += 1
-        min_div_val = min(division_column_results)
-        index_min_div_val = division_column_results.index(min_div_val)
-        pivot_element = pivot_column[index_min_div_val]
-        if pivot_element < 0:
+        position_min_last_row = last_row.index(min_last_row)
+        pivot_column = table_columns[position_min_last_row]
+
+        if find_pivot(last_column[:-1], pivot_column)[0] < 0:
             print(no_solution)
 
     if not pandas_av:
@@ -292,3 +269,54 @@ def construct_table(column_values):
         i += 1
 
     return final_cols
+
+
+def add_pivots_array(pivot_element, pivot_column, pivot_row):
+    print("\n")
+    print('pivot element: %s' % pivot_element)
+    print('pivot column: ', pivot_column)
+    print('pivot row: ', pivot_row)
+
+    temp = data[-1]
+    temp['pivot_element'] = pivot_element
+    temp['pivot_column'] = pivot_column
+    temp['pivot_row'] = pivot_row
+    json.dumps(temp)
+    data[-1] = temp
+
+
+def print_tables(table_rows, is_first=True):
+    global count
+
+    if is_first:
+        print(" 1 tabla aumentada")
+        try:
+            # Organiza gráficamente con "pandas" la tabla con sus encabezados y filas
+            final_pd = pd.DataFrame(np.array(table_rows), columns=constrains_names, index=solutions)
+            print(final_pd)  # imprime la tabla
+            result = json.loads(final_pd.to_json(orient='split'))
+            print(result)
+            data.append(result)
+        except Exception as ex:
+            print(ex)
+            print('  ', constrains_names)
+            i = 0
+            for cols in table_rows:
+                print(solutions[i], cols)
+                i += 1
+    else:
+        print(" %d TABLA AUMENTADA" % count)
+        try:
+            final_pd = pd.DataFrame(np.array(table_rows), columns=constrains_names, index=solutions)
+            print(final_pd)
+
+            result = json.loads(final_pd.to_json(orient='split'))
+            data.append(result)
+        except Exception as exep:
+            print(exep)
+            print("%d TABLA AU" % count)
+            print('  ', constrains_names)
+            i = 0
+            for cols in table_rows:
+                print(solutions[i], cols)
+                i += 1
