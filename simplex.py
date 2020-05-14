@@ -188,59 +188,13 @@ def maximization(table_rows, table_columns):
     min_last_row = min(last_row)
     min_manager = 1
 
-    print_tables(table_rows)
+    add_tables_to_show(table_rows)
 
     count = 2
     pivot_element = 2
 
     while min_last_row < 0 < pivot_element != 1 and min_manager == 1 and count < 6:
-        last_row = table_rows[-1]  # Obtiene la ultima fila
-        last_column = table_columns[-1]  # Obtiene la ultima columna
-        min_last_row = min(last_row)  # Obtiene el elemento menor de la ultima fila
-
-        # Obtiene la posición del elemento menor de la fila (función objetivo)
-        position_min_last_row = last_row.index(min_last_row)
-        # Asigna a la variable cual es la columna objetivo
-        pivot_column = table_columns[position_min_last_row]
-        pivot_column_position = table_columns.index(pivot_column)
-        # lista que va almacenando los resultados de las divisiones par luego determinar el menor y asi la fila pivote
-
-        pivot_and_index_and_division_results = find_pivot(last_column[:-1], pivot_column)
-        division_column_results = pivot_and_index_and_division_results[2]
-        pivot_element = pivot_and_index_and_division_results[0]
-        pivot_row = table_rows[pivot_and_index_and_division_results[1]]
-        pivot_position_row = table_rows.index(pivot_row)
-        row_app[:] = []  # [:] significa hacer una copia
-
-        # Se hace la aplicación de Gauss
-        table_rows = applying_gauss(table_rows, pivot_row, position_min_last_row, pivot_element)
-
-        table_columns[:] = []
-        re_filas_tabla = np.array(table_rows).T.tolist()
-        #  Se hace una lista bidimensional de las columnas
-        table_columns = table_columns + re_filas_tabla
-
-        if min(division_column_results) != 10000000000:
-            min_manager = 1
-        else:
-            min_manager = 0
-
-        add_pivots_array(pivot_element, pivot_column, pivot_row)
-
-        # SACA LA VARIABLE Y ENTRA LA VARIABLE DE LA COLUMNA
-        solutions[pivot_position_row] = constrains_names[pivot_column_position]
-
-        print_tables(table_rows, False)
-
-        count += 1
-        last_row = table_rows[-1]
-        last_column = table_columns[-1]
-        min_last_row = min(last_row)
-        position_min_last_row = last_row.index(min_last_row)
-        pivot_column = table_columns[position_min_last_row]
-
-        if find_pivot(last_column[:-1], pivot_column)[0] < 0:
-            print(no_solution)
+        procedimiento(table_rows, table_columns, row_app)
 
     if not pandas_av:
         print("No installed Pandas module")
@@ -285,38 +239,85 @@ def add_pivots_array(pivot_element, pivot_column, pivot_row):
     data[-1] = temp
 
 
-def print_tables(table_rows, is_first=True):
+def add_tables_to_show(table_rows):
+    """
+    Crea un objeto pandas que representa una tabla con sus encabezados para mostrar por consola como tambien generar
+    un objeto json que se añade al array data[] que posteriormente se enviara frontent para ser mostrado
+    :param table_rows: matriz con los datos de la tabla a mostrar [[],[],[]]
+    :return: void
+    """
     global count
 
-    if is_first:
-        print(" 1 tabla aumentada")
-        try:
-            # Organiza gráficamente con "pandas" la tabla con sus encabezados y filas
-            final_pd = pd.DataFrame(np.array(table_rows), columns=constrains_names, index=solutions)
-            print(final_pd)  # imprime la tabla
-            result = json.loads(final_pd.to_json(orient='split'))
-            print(result)
-            data.append(result)
-        except Exception as ex:
-            print(ex)
-            print('  ', constrains_names)
-            i = 0
-            for cols in table_rows:
-                print(solutions[i], cols)
-                i += 1
-    else:
-        print(" %d TABLA AUMENTADA" % count)
-        try:
-            final_pd = pd.DataFrame(np.array(table_rows), columns=constrains_names, index=solutions)
-            print(final_pd)
+    print("  %d TABLA AUMENTADA" % count)
+    try:
+        # Organiza gráficamente con "pandas" la tabla con sus encabezados y filas
+        final_pd = pd.DataFrame(np.array(table_rows), columns=constrains_names, index=solutions)
+        print(final_pd)  # imprime la tabla
+        result = json.loads(final_pd.to_json(orient='split'))
+        print(result)
+        data.append(result)
+    except Exception as ex:
+        print(ex)
+        print("%d TABLA AU" % count)
+        print('  ', constrains_names)
+        i = 0
+        for cols in table_rows:
+            print(solutions[i], cols)
+            i += 1
 
-            result = json.loads(final_pd.to_json(orient='split'))
-            data.append(result)
-        except Exception as exep:
-            print(exep)
-            print("%d TABLA AU" % count)
-            print('  ', constrains_names)
-            i = 0
-            for cols in table_rows:
-                print(solutions[i], cols)
-                i += 1
+
+def procedimiento(table_rows1, table_columns1, row_app):
+    global count
+    global table_rows
+    global table_columns
+
+    table_rows = table_rows1
+    table_columns = table_columns1
+
+    last_row = table_rows[-1]  # Obtiene la ultima fila
+    last_column = table_columns[-1]  # Obtiene la ultima columna
+    min_last_row = min(last_row)  # Obtiene el elemento menor de la ultima fila
+
+    # Obtiene la posición del elemento menor de la fila (función objetivo)
+    position_min_last_row = last_row.index(min_last_row)
+    # Asigna a la variable cual es la columna objetivo
+    pivot_column = table_columns[position_min_last_row]
+    pivot_column_position = table_columns.index(pivot_column)
+    # lista que va almacenando los resultados de las divisiones par luego determinar el menor y asi la fila pivote
+
+    pivot_and_index_and_division_results = find_pivot(last_column[:-1], pivot_column)
+    division_column_results = pivot_and_index_and_division_results[2]
+    pivot_element = pivot_and_index_and_division_results[0]
+    pivot_row = table_rows[pivot_and_index_and_division_results[1]]
+    pivot_position_row = table_rows.index(pivot_row)
+    row_app[:] = []  # [:] significa hacer una copia
+
+    # Se hace la aplicación de Gauss
+    table_rows = applying_gauss(table_rows, pivot_row, position_min_last_row, pivot_element)
+
+    table_columns[:] = []
+    re_filas_tabla = np.array(table_rows).T.tolist()
+    #  Se hace una lista bidimensional de las columnas
+    table_columns = table_columns + re_filas_tabla
+
+    if min(division_column_results) != 10000000000:
+        min_manager = 1
+    else:
+        min_manager = 0
+
+    add_pivots_array(pivot_element, pivot_column, pivot_row)
+
+    # SACA LA VARIABLE Y ENTRA LA VARIABLE DE LA COLUMNA
+    solutions[pivot_position_row] = constrains_names[pivot_column_position]
+
+    add_tables_to_show(table_rows)
+
+    count += 1
+    last_row = table_rows[-1]
+    last_column = table_columns[-1]
+    min_last_row = min(last_row)
+    position_min_last_row = last_row.index(min_last_row)
+    pivot_column = table_columns[position_min_last_row]
+
+    if find_pivot(last_column[:-1], pivot_column)[0] < 0:
+        print(no_solution)
