@@ -13,11 +13,15 @@ Pandas
 1. Instalar versión de python 3.x
 
 2. Instalar flask:
-    
+```python
+   pip install flask
+```
     pip install flask
 
 3. Instalar pandas:
-    
+```python
+   pip install pandas
+```
     pip install pandas
 
 ## Ejecutar aplicación
@@ -28,10 +32,13 @@ Una vez se ejecute el servidor de flask abrir la ruta http://localhost:5000/ en 
 
 ## Vistas de la aplicación
 ### Vista general
+![Vista general](https://github.com/oscargithup2018/simplex/blob/master/screen_shots/general_view.jpg)
 
 ### Ingresando datos
+![Ingresando datos](https://github.com/oscargithup2018/simplex/blob/master/screen_shots/data.jpg)
 
 ### Obteniendo los resultados
+![Obteniendo los resultados](https://github.com/oscargithup2018/simplex/blob/master/screen_shots/optimal_solution.jpg)
 
 ## Autores:
 
