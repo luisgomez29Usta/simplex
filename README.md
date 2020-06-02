@@ -10,9 +10,14 @@ Pandas
 
 # Autores:
 
-Luis Guillermo Gómez Galeano | https://github.com/luisgomez29
+* **Oscar Gómez**  
+[github](https://github.com/oscargithup2018)\
+[gitlab](https://gitlab.com/oscarjaviergosa)\
+[facebook](https://web.facebook.com/oscarjavier.gomezsanchez.3)
 
-Oscar Javier Gómez Sánchez | https://github.com/oscargithub2018
+* **Luis Gómez**  
+[github](https://github.com/luisgomez29)\
+
 
 ```
 Gracias!
