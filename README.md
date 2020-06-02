@@ -14,15 +14,13 @@ Pandas
 
 2. Instalar flask:
 ```python
-   pip install flask
+pip install flask
 ```
-    pip install flask
 
 3. Instalar pandas:
 ```python
-   pip install pandas
+pip install pandas
 ```
-    pip install pandas
 
 ## Ejecutar aplicación
 Para ejecutar la aplicación ejecute archivo principal:
@@ -40,7 +38,17 @@ Una vez se ejecute el servidor de flask abrir la ruta http://localhost:5000/ en 
 ### Obteniendo los resultados
 ![Obteniendo los resultados](https://github.com/oscargithup2018/simplex/blob/master/screen_shots/optimal_solution.jpg)
 
-## Autores:
+
+## Agradecimientos
+El codigo fuente del algoritmo simplex se encuetra en el repositirio:
+
+https://github.com/kimutaiRop/EKR-SIMPLEX-PROBLEM-CALCULATOR
+
+Este código fue adaptado para el funcionamiento a una aplicación web.
+
+
+
+## Autores
 
 **Oscar Javier Gómez**  
 - [Github](https://github.com/oscargithup2018)
