@@ -16,7 +16,7 @@ Pandas
 [facebook](https://web.facebook.com/oscarjavier.gomezsanchez.3)
 
 * **Luis Gómez**  
-[github](https://github.com/luisgomez29)\
+[github](https://github.com/luisgomez29)
 
 
 ```
