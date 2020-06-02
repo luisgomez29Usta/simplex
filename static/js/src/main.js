@@ -160,6 +160,15 @@ $(document).ready(function () {
     }
 
     /**
+     * Limpia la interfaz gráfica para realizar otro ejercicio
+     */
+    $('#btn_new').on('click', function () {
+        $(this).removeClass('d-block').addClass('d-none');
+        $('#data-container').addClass('d-none');
+        $('#results, #restriction-div, #coefficient-div').empty();
+    });
+
+    /**
      * Mostrar resultados
      * @param data Datos en formato JSON
      */
@@ -208,6 +217,7 @@ $(document).ready(function () {
             }
         });
         $('#results').html(html);
+        $('#btn_new').removeClass('d-none').addClass('d-block');
     }
 
 });
