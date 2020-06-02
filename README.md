@@ -24,8 +24,9 @@ pip install pandas
 
 ## Ejecutar aplicación
 Para ejecutar la aplicación ejecute archivo principal:
-    python app.py
-
+```python
+python app.py
+```
 Una vez se ejecute el servidor de flask abrir la ruta http://localhost:5000/ en el navegador. 
 
 ## Vistas de la aplicación
