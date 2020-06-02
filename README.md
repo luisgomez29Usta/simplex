@@ -3,7 +3,9 @@ Calculadora web para resolver problemas de optimización con el método simplex
 
 # Requerimietos
 Python
+
 Flask
+
 Pandas
 
 # Autores:
