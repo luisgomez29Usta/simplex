@@ -8,6 +8,12 @@ Flask
 
 Pandas
 
+# Instalación
+
+1. Instalar versión de python 3.x
+
+2. 
+
 # Autores:
 
 * **Oscar Gómez**  
