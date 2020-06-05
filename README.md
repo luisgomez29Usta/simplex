@@ -6,7 +6,12 @@ Calculadora web para resolver problemas de optimización con el método simplex.
 
 **Flask:** Micro framework web
 
-**Pandas:** Permite el el manejo de matices y el correcto funcionamiento del algoritmo simplex.
+[Documentación de Flask](https://flask.palletsprojects.com/en/1.1.x/)
+
+**Pandas:** Permite el manejo de matrices y el correcto funcionamiento del algoritmo simplex.
+
+[Documentación de Pandas](https://pandas.pydata.org/)
+
 
 ## Instalación
 
