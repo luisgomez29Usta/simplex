@@ -12,7 +12,7 @@ Calculadora web para resolver problemas de optimización con el método simplex.
 
 1. Instalar versión de python 3.x de acuedo a su sitema operativo.
 
-[Descargar Python](https://www.python.org/downloads/)
+ [Descargar Python](https://www.python.org/downloads/)
 
 2. Instalar flask:
 ```python
