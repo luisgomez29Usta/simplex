@@ -2,17 +2,17 @@
 Calculadora web para resolver problemas de optimización con el método simplex.
 
 ## Requerimietos
-Python
+**Python**
 
-Flask: Micro framework web
+**Flask:** Micro framework web
 
-Pandas: Permite el el manejo de matices y el correcto funcionamiento del algoritmo simplex.
+**Pandas:** Permite el el manejo de matices y el correcto funcionamiento del algoritmo simplex.
 
 ## Instalación
 
 1. Instalar versión de python 3.x de acuedo a su sitema operativo.
 
-- [Descargar Python](https://www.python.org/downloads/)
+[Descargar Python](https://www.python.org/downloads/)
 
 2. Instalar flask:
 ```python
